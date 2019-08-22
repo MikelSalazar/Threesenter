@@ -1,0 +1,5 @@
+{
+	"$id": "https://threesenter.com/threesenter.schema.json",
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"description": "The Schema of the Threesence framework files"
+}
