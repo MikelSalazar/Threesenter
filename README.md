@@ -1,2 +1,2 @@
 # Threesenter
-A relatively simple Javascript engine to facilitate the creation of web presentations and Progressive Web Apps with ThreeJS
+A relatively simple Javascript framework to facilitate the creation of web presentations and Progressive Web Apps with ThreeJS
