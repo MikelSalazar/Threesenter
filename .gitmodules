@@ -1,6 +1,3 @@
-[submodule "Theesenter.Examples"]
-	path = Theesenter.Examples
-	url = https://github.com/MikelSalazar/Theesenter.Examples.git
 [submodule "examples"]
 	path = examples
 	url = https://github.com/MikelSalazar/Theesenter.Examples.git
