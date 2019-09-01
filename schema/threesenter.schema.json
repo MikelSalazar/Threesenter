@@ -1,5 +1,269 @@
 {
-	"$id": "https://threesenter.com/threesenter.schema.json",
+	"$id": "https://threesenter.com/schema/threesenter.schema.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
-	"description": "The Schema of the Threesence framework files"
+	"title": "Threesence JSON Schema",
+	"description": "The JSON schema of the Threesence framework files.",
+	"type":"object",
+	"allOf": [ { "$ref": "#/definitions/root" } ],
+	"definitions": {
+		
+		"root": {
+			"title": "Root",
+			"description": "The root of any Threesence JSON file.",
+			"properties": {
+				"threesenter": { 
+					"title": "Root",
+					"description": "The version number of Threesenter.",
+					"type":"number"
+				},
+				"name": {
+					"title": "Name",
+					"description": "The name of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"title": {
+					"title": "Title",
+					"description": "The title of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"description": {
+					"title": "Description",
+					"description": "The description of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"keywords": {
+					"title": "Keywords",
+					"description": "The keywords of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"copyright": {
+					"title": "Copyright",
+					"description": "The copyright of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+
+				"scroll": {
+					"title": "Scroll",
+					"description": "The scroll direction of the threesentation.",
+					"enum": ["none", "vertical", "horizontal"]
+				},
+
+				"locales": {
+					"title": "Locales",
+					"description": "The list of localization data elements.",
+					"type":"array", 
+					"items": { "allOf": [ { "$ref": "#/definitions/locale" } ]}
+				},
+				"styles": {
+					"title": "Styles",
+					"description": "The list of graphical styles.",
+					"type":"array", 
+					"items": { "allOf": [ { "$ref": "#/definitions/style" } ]}
+				},
+				"slides": {
+					"title": "Slides",
+					"description": "The list of slides of the threesentation.",
+					"type":"array", 
+					"items": { "allOf": [ { "$ref": "#/definitions/slide" } ]}
+				},
+				"header": {
+					"title": "Header",
+					"description": "The header of the threesentation.",
+					"type": "object", 
+					"allOf": [ { "$ref": "#/definitions/panel" } ]
+				},
+				"footer": {
+					"title": "Footer",
+					"description": "The footer of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/panel" } ]
+				},
+				"navigator": {
+					"title": "Navigator",
+					"description": "The navigation menu of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/panel" } ]
+				},
+				"options": {
+					"title": "Options",
+					"description": "The options menu of the threesentation.",
+					"allOf": [ { "$ref": "#/definitions/panel" } ]
+				}
+			},
+			"required": ["threesenter", "name"]
+		},
+
+		"text": {
+			"title": "Text",
+			"description": "A text string that can be localized.",
+			"anyOf": [ { "type": "string" }, { "type": "object" } ]
+		},
+
+
+		"locale": {
+			"title": "Locale",
+			"description": "A localization data element.",
+			"properties": {
+				"code": {
+					"title": "Code",
+					"description": "The ISO 639 code of the language name.",
+					"type": "string"
+				},
+				"name": {
+					"title": "Name",
+					"description": "The name of the locale.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"icon": {
+					"title": "Icon Path",
+					"description": "The path to the icon file.",
+					"type": "string"
+				}
+			},
+			"required": ["code"]
+		},
+
+		"style": {
+			"title": "Style",
+			"description": "A graphical style.",
+			"properties": {
+				"name": {
+					"title": "Name",
+					"description": "The name of the style.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"icon": {
+					"title": "Icon Path",
+					"description": "The path to the icon file.",
+					"type": "string"
+				},
+				"css": {
+					"title": "CSS Path",
+					"description": "The path to the CSS file.",
+					"type": "string"
+				}
+			},
+			"required": ["name"]
+		},
+
+		"slide" : {
+			"title": "Slide",
+			"description": "A slide of the threesentation.",
+			"properties": {
+				"name": {
+					"title": "Name",
+					"description": "The name of the slide.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"notes": {
+					"title": "Notes",
+					"description": "The notes of the slide.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"visible": {
+					"title": "Visible",
+					"description": "Whether to hide the slide or not.",
+					"type": "boolean",
+					"default": true
+				},
+				"printable": {
+					"title": "Printable",
+					"description": "Whether the slide can be printed or not.",
+					"type": "boolean",
+					"default": true
+				},
+				"showHeader": {
+					"title": "Show Header",
+					"description": "Shows/hides the header.",
+					"type": "boolean",
+					"default": true
+				},
+				"showFooter": {
+					"title": "Show Footer",
+					"description": "Shows/hides the footer.",
+					"type": "boolean",
+					"default": true
+				},
+				"showNavigator": {
+					"title": "Show Navigator",
+					"description": "Shows/hides the navigation menu.",
+					"type": "boolean",
+					"default": false
+				},
+				"showOptions": {
+					"title": "Show Options",
+					"description": "Shows/hides the options menu.",
+					"type": "boolean",
+					"default": false
+				},
+				"elements": {
+					"title": "Elements",
+					"description": "The elements of the slide.",
+					"allOf": [ { "$ref": "#/definitions/element" } ]
+				}
+			},
+			"required": ["name"]
+		},
+
+
+		"panel" : {
+			"title": "Panel",
+			"description": "A panel of the threesentation.",
+			"properties": {
+				"elements": {
+					"title": "Elements",
+					"description": "The elements of the panel.",
+					"allOf": [ { "$ref": "#/definitions/element" } ]
+				}
+			}
+		},
+
+		"element" : {
+			"title": "Element",
+			"description": "An element of a slide.",
+			"properties": {
+				"name": {
+					"title": "Name",
+					"description": "The name of the element.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"type": {
+					"title": "Type",
+					"description": "The type of the element.",
+					"type": "string",
+					"enum": ["text", "image", "model"]
+				},
+				"text": {
+					"title": "Text",
+					"description": "The text of the element.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"style": {
+					"title": "Style",
+					"description": "Additional CSS style data of the element.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"path": {
+					"title": "Path",
+					"description": "The file path of the of the element.",
+					"allOf": [ { "$ref": "#/definitions/text" } ]
+				},
+				"action": {
+					"title": "Action",
+					"description": "The action associated to the element.",
+					"allOf": [ { "$ref": "#/definitions/action" } ]
+				},
+				"children": {
+					"title": "Children",
+					"description": "The children of the element.",
+					"allOf": [ { "$ref": "#/definitions/element" } ]
+				}
+			},
+			"required": ["name"]
+		},
+
+		"action": {
+			"title": "Action",
+			"description": "The action to perform on a given event",
+			"anyOf": [ { "type": "string" }, { "type": "object" } ]
+		}
+	}
 }
